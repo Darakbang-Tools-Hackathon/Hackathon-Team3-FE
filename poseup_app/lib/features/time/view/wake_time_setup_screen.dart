@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/models/sleep_recommendation.dart';
+import '../../../router/routes.dart';
 import '../../team/view/team_landing_screen.dart';
 import '../providers/wake_flow_provider.dart';
 
@@ -46,28 +47,25 @@ class WakeTimeSetupScreen extends ConsumerWidget {
             const SizedBox(height: 24),
             Text(
               '추천 기상 시간',
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+              style: Theme.of(context)
+                  .textTheme
+                  .titleMedium
+                  ?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 12),
             ...state.recommendations.map(
               (rec) => _RecommendationTile(
                 recommendation: rec,
                 selected: rec == state.selected,
-                onTap: () => controller.selectRecommendation(rec),
+                onTap: () {
+                  controller.selectRecommendation(rec);
+                  context.push(Routes.dashboard);
+                },
               ),
             ),
             const SizedBox(height: 32),
             if (state.selected != null)
               _RecommendationSummary(recommendation: state.selected!),
-            const SizedBox(height: 32),
-            FilledButton(
-              onPressed: () => context.push(TeamLandingScreen.routePath),
-              style: FilledButton.styleFrom(
-                minimumSize: const Size.fromHeight(52),
-                backgroundColor: const Color(0xFF4F6BFF),
-              ),
-              child: const Text('기상 시간으로 설정'),
-            ),
             const SizedBox(height: 48),
           ],
         ),
@@ -100,12 +98,18 @@ class _Header extends StatelessWidget {
         const SizedBox(height: 18),
         Text(
           '잠들 시간을 선택해주세요',
-          style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
+          style: Theme.of(context)
+              .textTheme
+              .headlineSmall
+              ?.copyWith(fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 8),
         Text(
           'REM 수면 주기에 맞춰 최적의 기상 시간을 추천해드릴게요',
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.black54),
+          style: Theme.of(context)
+              .textTheme
+              .bodyMedium
+              ?.copyWith(color: Colors.black54),
         ),
       ],
     );
@@ -156,7 +160,8 @@ class _BedtimePicker extends StatelessWidget {
                     color: const Color(0xFF253B80),
                   ),
             ),
-            const Icon(Icons.arrow_drop_down, size: 32, color: Color(0xFF253B80)),
+            const Icon(Icons.arrow_drop_down,
+                size: 32, color: Color(0xFF253B80)),
           ],
         ),
       ),
@@ -224,19 +229,25 @@ class _RecommendationTile extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(22)),
         title: Text(
           recommendation.wakeTime.format(context),
-          style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+          style: Theme.of(context)
+              .textTheme
+              .titleLarge
+              ?.copyWith(fontWeight: FontWeight.bold),
         ),
         subtitle: Text(
           '${recommendation.cycles}주기 · 총 ${recommendation.totalSleep.inHours}시간 ${(recommendation.totalSleep.inMinutes % 60).toString().padLeft(2, '0')}분 수면',
         ),
         trailing: recommendation.isHighlighted
             ? Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
                   color: const Color(0xFFED7F2B),
                   borderRadius: BorderRadius.circular(16),
                 ),
-                child: const Text('추천', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                child: const Text('추천',
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold)),
               )
             : null,
         onTap: onTap,
@@ -370,7 +381,11 @@ class _StatTile extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Text(value, style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
+          Text(value,
+              style: Theme.of(context)
+                  .textTheme
+                  .titleMedium
+                  ?.copyWith(fontWeight: FontWeight.bold)),
           const SizedBox(height: 6),
           Text(title, style: const TextStyle(color: Colors.black54)),
         ],
@@ -449,4 +464,3 @@ class _TipsCard extends StatelessWidget {
     );
   }
 }
-

@@ -6,6 +6,8 @@ import '../../../core/providers/app_state.dart';
 import '../../../core/services/sleep_cycle_service.dart';
 import '../../../router/routes.dart';
 import '../../challenge/view/challenge_loading_screen.dart';
+import '../../team/view/team_create_screen.dart';
+import '../../team/view/team_join_screen.dart';
 import '../../team/view/team_screen.dart';
 
 class DashboardScreen extends ConsumerWidget {
@@ -48,11 +50,14 @@ class DashboardScreen extends ConsumerWidget {
                 const SizedBox(height: 16),
                 Card(
                   child: ListTile(
-                    leading: const CircleAvatar(child: Icon(Icons.self_improvement)),
+                    leading:
+                        const CircleAvatar(child: Icon(Icons.self_improvement)),
                     title: Text('LP ${user.lp}'),
-                    subtitle: Text('오늘의 챌린지 상태: ${user.lastChallengeStatus ?? '대기 중'}'),
+                    subtitle: Text(
+                        '오늘의 챌린지 상태: ${user.lastChallengeStatus ?? '대기 중'}'),
                     trailing: FilledButton(
-                      onPressed: () => context.go(ChallengeLoadingScreen.routePath),
+                      onPressed: () =>
+                          context.go(ChallengeLoadingScreen.routePath),
                       child: const Text('챌린지 시작'),
                     ),
                   ),
@@ -66,15 +71,33 @@ class DashboardScreen extends ConsumerWidget {
                 Wrap(
                   spacing: 12,
                   children: suggestions
-                      .map((time) => _SleepSuggestionChip(time: time.format(context)))
+                      .map((time) =>
+                          _SleepSuggestionChip(time: time.format(context)))
                       .toList(),
+                ),
+                const SizedBox(height: 32),
+                FilledButton(
+                  onPressed: () => context.go(TeamCreateScreen.routePath),
+                  style: FilledButton.styleFrom(
+                    minimumSize: const Size.fromHeight(52),
+                  ),
+                  child: const Text('팀 생성하기'),
+                ),
+                const SizedBox(height: 12),
+                OutlinedButton(
+                  onPressed: () => context.go(TeamJoinScreen.routePath),
+                  style: OutlinedButton.styleFrom(
+                    minimumSize: const Size.fromHeight(52),
+                  ),
+                  child: const Text('팀 참여하기'),
                 ),
               ],
             ),
           ),
         );
       },
-      loading: () => const Scaffold(body: Center(child: CircularProgressIndicator())),
+      loading: () =>
+          const Scaffold(body: Center(child: CircularProgressIndicator())),
       error: (error, _) => Scaffold(
         body: Center(
           child: Text('사용자 정보를 불러오지 못했어요\n$error'),
@@ -97,4 +120,3 @@ class _SleepSuggestionChip extends StatelessWidget {
     );
   }
 }
-

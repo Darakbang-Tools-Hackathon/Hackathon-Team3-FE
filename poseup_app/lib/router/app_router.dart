@@ -7,10 +7,12 @@ import '../features/challenge/view/challenge_screen.dart';
 import '../features/dashboard/view/dashboard_screen.dart';
 import '../features/onboarding/view/onboarding_screen.dart';
 import '../features/profile/view/profile_screen.dart';
-import '../features/team/view/team_screen.dart';
 import '../features/team/view/team_create_screen.dart';
 import '../features/team/view/team_join_screen.dart';
 import '../features/team/view/team_landing_screen.dart';
+import '../features/team/view/team_screen.dart';
+import '../features/time/view/option_screen.dart';
+import '../features/time/view/sleep_time_setup_screen.dart';
 import '../features/time/view/wake_time_setup_screen.dart';
 import 'routes.dart';
 
@@ -21,6 +23,14 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: OnboardingScreen.routePath,
         builder: (context, state) => const OnboardingScreen(),
+      ),
+      GoRoute(
+        path: SleepTimeSetupScreen.routePath,
+        builder: (context, state) => const SleepTimeSetupScreen(),
+      ),
+      GoRoute(
+        path: OptionScreen.routePath,
+        builder: (context, state) => const OptionScreen(),
       ),
       GoRoute(
         path: Routes.dashboard,

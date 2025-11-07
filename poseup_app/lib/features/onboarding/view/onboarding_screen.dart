@@ -3,12 +3,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../router/routes.dart';
+import '../../time/view/option_screen.dart';
 import '../../time/view/wake_time_setup_screen.dart';
 
 class OnboardingScreen extends ConsumerWidget {
   const OnboardingScreen({super.key});
 
-  static const routePath = '/';
+  static const routePath = Routes.onboarding;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -76,6 +77,11 @@ class OnboardingScreen extends ConsumerWidget {
                 foreground: Colors.white,
                 onPressed: () => context.push(WakeTimeSetupScreen.routePath),
               ),
+                const SizedBox(height: 12),
+                FilledButton(
+                  onPressed: () => context.push(OptionScreen.routePath),
+                  child: const Text('시작하기'),
+                ),
                 const SizedBox(height: 20),
                 Text(
                 '계속 진행하면 이용약관 및 개인정보 처리방침에 동의하게 됩니다',
