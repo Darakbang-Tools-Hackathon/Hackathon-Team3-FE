@@ -11,7 +11,8 @@ class SleepTimeSetupScreen extends ConsumerStatefulWidget {
   static const routePath = '/time/sleep';
 
   @override
-  ConsumerState<SleepTimeSetupScreen> createState() => _SleepTimeSetupScreenState();
+  ConsumerState<SleepTimeSetupScreen> createState() =>
+      _SleepTimeSetupScreenState();
 }
 
 class _SleepTimeSetupScreenState extends ConsumerState<SleepTimeSetupScreen> {
@@ -21,14 +22,17 @@ class _SleepTimeSetupScreenState extends ConsumerState<SleepTimeSetupScreen> {
   @override
   void initState() {
     super.initState();
-    recommendations = ref.read(sleepCycleServiceProvider).calculateWakeTimes(bedtime, suggestions: 4);
+    recommendations = ref
+        .read(sleepCycleServiceProvider)
+        .calculateWakeTimes(bedtime, suggestions: 4);
   }
 
   void _updateBedTime(TimeOfDay time) {
     setState(() {
       bedtime = time;
-      recommendations =
-          ref.read(sleepCycleServiceProvider).calculateWakeTimes(bedtime, suggestions: 4);
+      recommendations = ref
+          .read(sleepCycleServiceProvider)
+          .calculateWakeTimes(bedtime, suggestions: 4);
     });
   }
 
@@ -137,7 +141,8 @@ class _BedtimePicker extends StatelessWidget {
                     color: const Color(0xFF253B80),
                   ),
             ),
-            const Icon(Icons.arrow_drop_down, size: 32, color: Color(0xFF253B80)),
+            const Icon(Icons.arrow_drop_down,
+                size: 32, color: Color(0xFF253B80)),
           ],
         ),
       ),
@@ -199,19 +204,24 @@ class _WakeRecommendationTile extends StatelessWidget {
         child: ListTile(
           title: Text(
             time,
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+            style: Theme.of(context)
+                .textTheme
+                .titleLarge
+                ?.copyWith(fontWeight: FontWeight.bold),
           ),
           subtitle: Text('$sleepDuration · ${isRecommended ? '최적 추천' : '대안'}'),
           trailing: isRecommended
               ? Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   decoration: BoxDecoration(
                     color: const Color(0xFFED7F2B),
                     borderRadius: BorderRadius.circular(16),
                   ),
                   child: const Text(
                     '추천',
-                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
                   ),
                 )
               : null,
@@ -220,4 +230,3 @@ class _WakeRecommendationTile extends StatelessWidget {
     );
   }
 }
-
