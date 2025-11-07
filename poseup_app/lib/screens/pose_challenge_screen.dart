@@ -3,7 +3,6 @@ import '../widgets/challenge_timer_bar.dart';
 import '../widgets/pose_guide_box.dart';
 import '../widgets/feedback_bar.dart';
 import '../widgets/pose_status_box.dart';
-import '../theme/app_colors.dart';
 
 class PoseChallengeScreen extends StatefulWidget {
   const PoseChallengeScreen({super.key});

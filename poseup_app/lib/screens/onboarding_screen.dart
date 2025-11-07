@@ -50,7 +50,12 @@ class OnboardingScreen extends StatelessWidget {
                   text: '시작하기',
                   color: Colors.orange,
                   textColor: Colors.white,
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const LoginScreen()),
+                    );
+                  },
                 ),
                 const SizedBox(height: 15),
 

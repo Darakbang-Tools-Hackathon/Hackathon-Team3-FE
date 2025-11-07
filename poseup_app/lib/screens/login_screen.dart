@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'dashboard_screen.dart';
+import 'signup_screen.dart';
 import 'sleep_time_screen.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -98,9 +100,9 @@ class LoginScreen extends StatelessWidget {
                   color: const Color(0xFFFFE0B2),
                   textColor: Colors.black87,
                   onTap: () {
-                    // TODO: 회원가입 페이지로 연결
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('회원가입 페이지 연결 예정')),
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const SignupScreen()),
                     );
                   },
                 ),
@@ -114,9 +116,9 @@ class LoginScreen extends StatelessWidget {
                   textColor: Colors.black87,
                   border: true,
                   onTap: () {
-                    // TODO: 로그인 페이지로 연결
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('로그인 페이지 연결 예정')),
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => const DashboardScreen()),
                     );
                   },
                 ),
