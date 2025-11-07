@@ -16,11 +16,11 @@ class TeamScreen extends ConsumerWidget {
       body: ListView(
         padding: const EdgeInsets.all(24),
         children: [
-          Card(
+          const Card(
             child: ListTile(
-              leading: const Icon(Icons.emoji_events),
-              title: const Text('팀 LP 15,000'),
-              subtitle: const Text('오늘 팀 성공률: 86%'),
+              leading: Icon(Icons.emoji_events),
+              title: Text('팀 LP 15,000'),
+              subtitle: Text('오늘 팀 성공률: 86%'),
             ),
           ),
           const SizedBox(height: 16),
@@ -64,4 +64,3 @@ class _TeamMemberTile extends StatelessWidget {
     );
   }
 }
-

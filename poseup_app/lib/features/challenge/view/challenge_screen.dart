@@ -31,7 +31,7 @@ class ChallengeScreen extends ConsumerWidget {
               child: DecoratedBox(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
-                  color: Theme.of(context).colorScheme.surfaceVariant,
+                  color: Theme.of(context).colorScheme.surfaceContainerHighest,
                 ),
                 child: const Center(
                   child: Icon(Icons.sports_gymnastics, size: 96),
@@ -43,10 +43,14 @@ class ChallengeScreen extends ConsumerWidget {
             const SizedBox(height: 16),
             FilledButton.icon(
               onPressed: () async {
-                final score = await ref.read(poseDetectionServiceProvider).evaluatePoseMatch();
+                final score = await ref
+                    .read(poseDetectionServiceProvider)
+                    .evaluatePoseMatch();
                 if (context.mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('포즈 일치도: ${(score * 100).toStringAsFixed(0)}% (스텁)')),
+                    SnackBar(
+                        content: Text(
+                            '포즈 일치도: ${(score * 100).toStringAsFixed(0)}% (스텁)')),
                   );
                 }
               },
@@ -80,4 +84,3 @@ class _CountdownTimer extends StatelessWidget {
     );
   }
 }
-
