@@ -1,13 +1,11 @@
+import 'package:characters/characters.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../../../router/routes.dart';
 
 class TeamScreen extends ConsumerWidget {
   const TeamScreen({super.key});
 
-  static const routePath = Routes.team;
-  static const routeName = 'team';
+  static const routePath = '/team/dashboard';
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -89,7 +87,7 @@ class TeamScreen extends ConsumerWidget {
                 description: '당신이 리더가 되어 팀을 만들어보세요',
                 icon: Icons.add,
                 buttonLabel: '팀 만들기',
-                onPressed: () => Navigator.of(context).pushNamed(Routes.teamCreate),
+                onPressed: () => Navigator.of(context).pushNamed('/team/create'),
               ),
               const SizedBox(height: 16),
               _TeamActionCard(
@@ -98,7 +96,7 @@ class TeamScreen extends ConsumerWidget {
                 description: '친구의 팀 코드로 참여하세요',
                 icon: Icons.group_add,
                 buttonLabel: '팀 참여하기',
-                onPressed: () => Navigator.of(context).pushNamed(Routes.teamJoin),
+                onPressed: () => Navigator.of(context).pushNamed('/team/join'),
               ),
               const SizedBox(height: 32),
               Text('최근 팀 현황', style: theme.textTheme.titleMedium),

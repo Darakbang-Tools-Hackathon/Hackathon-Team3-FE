@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class TeamJoinScreen extends ConsumerStatefulWidget {
+class TeamJoinScreen extends StatefulWidget {
   const TeamJoinScreen({super.key});
 
+  static const routePath = '/team/join';
+
   @override
-  ConsumerState<TeamJoinScreen> createState() => _TeamJoinScreenState();
+  State<TeamJoinScreen> createState() => _TeamJoinScreenState();
 }
 
-class _TeamJoinScreenState extends ConsumerState<TeamJoinScreen> {
+class _TeamJoinScreenState extends State<TeamJoinScreen> {
   final _codeController = TextEditingController(text: 'WAKE123456');
 
   @override

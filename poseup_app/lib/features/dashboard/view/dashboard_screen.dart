@@ -5,6 +5,8 @@ import 'package:go_router/go_router.dart';
 import '../../../core/providers/app_state.dart';
 import '../../../core/services/sleep_cycle_service.dart';
 import '../../../router/routes.dart';
+import '../../challenge/view/challenge_loading_screen.dart';
+import '../../team/view/team_screen.dart';
 
 class DashboardScreen extends ConsumerWidget {
   const DashboardScreen({super.key});
@@ -29,7 +31,7 @@ class DashboardScreen extends ConsumerWidget {
             title: const Text('PoseUp 대시보드'),
             actions: [
               IconButton(
-                onPressed: () => context.go(Routes.team),
+                onPressed: () => context.go(TeamScreen.routePath),
                 icon: const Icon(Icons.group),
               ),
             ],
@@ -50,7 +52,7 @@ class DashboardScreen extends ConsumerWidget {
                     title: Text('LP ${user.lp}'),
                     subtitle: Text('오늘의 챌린지 상태: ${user.lastChallengeStatus ?? '대기 중'}'),
                     trailing: FilledButton(
-                      onPressed: () => context.go(Routes.challenge),
+                      onPressed: () => context.go(ChallengeLoadingScreen.routePath),
                       child: const Text('챌린지 시작'),
                     ),
                   ),

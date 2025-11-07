@@ -18,6 +18,6 @@ void main() {
       ),
     );
 
-    expect(find.text('알람 설정 시작'), findsOneWidget);
+    expect(find.text('좋은 아침을 시작하세요!'), findsOneWidget);
   });
 }

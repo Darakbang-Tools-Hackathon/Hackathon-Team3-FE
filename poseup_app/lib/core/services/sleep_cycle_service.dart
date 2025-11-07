@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../models/sleep_recommendation.dart';
+
 import '../models/sleep_suggestion.dart';
 
 final sleepCycleServiceProvider = Provider<SleepCycleService>((ref) {
@@ -19,6 +21,31 @@ class SleepCycleService {
       final targetMinutes = baseMinutes + _fallAsleepBuffer.inMinutes + _cycleMinutes * i;
       final sanitized = _minutesToTimeOfDay(targetMinutes % (24 * 60));
       results.add(sanitized);
+    }
+
+    return results;
+  }
+
+  List<SleepRecommendation> buildRecommendations(
+    TimeOfDay bedtime, {
+    int suggestions = 4,
+  }) {
+    final baseMinutes = bedtime.hour * 60 + bedtime.minute;
+    final List<SleepRecommendation> results = [];
+
+    for (int i = 3; i <= suggestions + 2; i++) {
+      final totalMinutes = _fallAsleepBuffer.inMinutes + _cycleMinutes * i;
+      final wakeMinutes = baseMinutes + totalMinutes;
+      final wake = _minutesToTimeOfDay(wakeMinutes % (24 * 60));
+      final duration = Duration(minutes: totalMinutes);
+      results.add(
+        SleepRecommendation(
+          wakeTime: wake,
+          totalSleep: duration,
+          cycles: i,
+          isHighlighted: i == 5,
+        ),
+      );
     }
 
     return results;

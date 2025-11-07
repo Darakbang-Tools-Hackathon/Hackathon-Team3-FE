@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class TeamCreateScreen extends ConsumerStatefulWidget {
+class TeamCreateScreen extends StatefulWidget {
   const TeamCreateScreen({super.key});
 
+  static const routePath = '/team/create';
+
   @override
-  ConsumerState<TeamCreateScreen> createState() => _TeamCreateScreenState();
+  State<TeamCreateScreen> createState() => _TeamCreateScreenState();
 }
 
-class _TeamCreateScreenState extends ConsumerState<TeamCreateScreen> {
+class _TeamCreateScreenState extends State<TeamCreateScreen> {
   final _controller = TextEditingController();
 
   @override
@@ -71,8 +72,13 @@ class _TeamCreateScreenState extends ConsumerState<TeamCreateScreen> {
                       const SizedBox(height: 8),
                       Align(
                         alignment: Alignment.centerRight,
-                        child: Text('${_controller.text.length}/20자',
-                            style: theme.textTheme.labelSmall?.copyWith(color: Colors.deepPurple)),
+                        child: ValueListenableBuilder<TextEditingValue>(
+                          valueListenable: _controller,
+                          builder: (context, value, _) => Text(
+                            '${value.text.length}/20자',
+                            style: theme.textTheme.labelSmall?.copyWith(color: Colors.deepPurple),
+                          ),
+                        ),
                       ),
                     ],
                   ),
