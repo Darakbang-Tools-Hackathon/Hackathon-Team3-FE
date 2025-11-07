@@ -1,29 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import 'router/app_router.dart';
 
-class PoseUpApp extends ConsumerWidget {
-  const PoseUpApp({super.key});
+class App extends ConsumerWidget {
+  const App({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final router = ref.watch(appRouterProvider);
+    final router = ref.watch(routerProvider);
 
     return MaterialApp.router(
-      title: 'PoseUp',
       debugShowCheckedModeBanner: false,
+      title: 'PoseUp',
       routerConfig: router,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigoAccent),
-        useMaterial3: true,
+        scaffoldBackgroundColor: Colors.white,
+        primarySwatch: Colors.blue,
       ),
-      localizationsDelegates: const [
-        ...GlobalMaterialLocalizations.delegates,
-      ],
-      supportedLocales: const [Locale('ko'), Locale('en')],
     );
   }
 }
-

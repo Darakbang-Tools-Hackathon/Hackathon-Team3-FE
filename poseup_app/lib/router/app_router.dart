@@ -1,37 +1,27 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../features/challenge/view/challenge_screen.dart';
+// ✅ 실제 폴더 구조에 맞게 수정된 경로
 import '../features/dashboard/view/dashboard_screen.dart';
-import '../features/onboarding/view/onboarding_screen.dart';
-import '../features/team/view/team_screen.dart';
-import 'routes.dart';
+import '../screens/pose_challenge_screen.dart';
+import '../screens/challenge_result_success_screen.dart';
 
-final appRouterProvider = Provider<GoRouter>((ref) {
+final routerProvider = Provider<GoRouter>((ref) {
   return GoRouter(
-    initialLocation: Routes.onboarding,
+    initialLocation: '/result_success', // ✅ 앱 실행 시 첫 화면 지정
     routes: [
       GoRoute(
-        path: Routes.onboarding,
-        name: OnboardingScreen.routeName,
-        builder: (context, state) => const OnboardingScreen(),
-      ),
-      GoRoute(
-        path: Routes.dashboard,
-        name: DashboardScreen.routeName,
+        path: '/dashboard',
         builder: (context, state) => const DashboardScreen(),
       ),
       GoRoute(
-        path: Routes.challenge,
-        name: ChallengeScreen.routeName,
-        builder: (context, state) => const ChallengeScreen(),
+        path: '/pose_challenge',
+        builder: (context, state) => const PoseChallengeScreen(),
       ),
       GoRoute(
-        path: Routes.team,
-        name: TeamScreen.routeName,
-        builder: (context, state) => const TeamScreen(),
+        path: '/result_success',
+        builder: (context, state) => const ChallengeResultSuccessScreen(),
       ),
     ],
   );
 });
-

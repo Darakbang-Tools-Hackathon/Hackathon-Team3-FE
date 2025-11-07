@@ -1,27 +1,28 @@
 import 'package:flutter/material.dart';
 import '../utils/sleep_calculator.dart';
-import 'sleep_dashboard_screen.dart';
+import 'blue_dashboard_screen.dart';
 
-class SleepTimeScreen extends StatefulWidget {
-  const SleepTimeScreen({super.key});
+class WakeTimeScreen extends StatefulWidget {
+  const WakeTimeScreen({super.key});
 
   @override
-  State<SleepTimeScreen> createState() => _SleepTimeScreenState();
+  State<WakeTimeScreen> createState() => _WakeTimeScreenState();
 }
 
-class _SleepTimeScreenState extends State<SleepTimeScreen> {
-  int hour = 11;
+class _WakeTimeScreenState extends State<WakeTimeScreen> {
+  int hour = 7;
   int minute = 0;
-  String period = 'PM';
+  String period = 'AM';
+  
+  get Sleep_Calculator => null;
 
   @override
   Widget build(BuildContext context) {
-    final wakeTimes = SleepCalculator.calculateWakeTimes(hour, minute, period);
+    final bedTimes = Sleep_Calculator.calculateBedTimes(hour, minute, period);
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF3E8FF),
+      backgroundColor: const Color(0xFFE6F0FF),
       appBar: AppBar(
-        title: const Text(''),
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
@@ -34,14 +35,16 @@ class _SleepTimeScreenState extends State<SleepTimeScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Icon(Icons.nightlight_round, color: Colors.deepPurpleAccent, size: 70),
-            const SizedBox(height: 20),
-            const Text('잠들 시간을 선택해주세요', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            const Icon(Icons.wb_sunny_rounded, size: 72, color: Color(0xFF2E6AE6)),
+            const SizedBox(height: 16),
+            const Text('기상 시간을 선택해주세요',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
             const SizedBox(height: 6),
-            const Text('REM 수면 주기에 맞춰 최적의 기상 시간을 추천해드릴게요.', style: TextStyle(color: Colors.black54)),
-            const SizedBox(height: 30),
+            const Text('수면 주기에 맞춰 최적의 취침 시간을 추천해드릴게요.',
+                style: TextStyle(color: Colors.black54)),
+            const SizedBox(height: 24),
 
-            // 시간 선택
+            // 시간 선택 드롭다운
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -52,10 +55,10 @@ class _SleepTimeScreenState extends State<SleepTimeScreen> {
                       .toList(),
                   onChanged: (v) => setState(() => hour = v!),
                 ),
-                const Text(" : "),
+                const Text(' : '),
                 DropdownButton<int>(
                   value: minute,
-                  items: [0, 15, 30, 45]
+                  items: const [0, 15, 30, 45]
                       .map((m) => DropdownMenuItem(value: m, child: Text(m.toString().padLeft(2, '0'))))
                       .toList(),
                   onChanged: (v) => setState(() => minute = v!),
@@ -63,7 +66,7 @@ class _SleepTimeScreenState extends State<SleepTimeScreen> {
                 const SizedBox(width: 10),
                 DropdownButton<String>(
                   value: period,
-                  items: ['AM', 'PM']
+                  items: const ['AM', 'PM']
                       .map((p) => DropdownMenuItem(value: p, child: Text(p)))
                       .toList(),
                   onChanged: (v) => setState(() => period = v!),
@@ -71,26 +74,24 @@ class _SleepTimeScreenState extends State<SleepTimeScreen> {
               ],
             ),
 
-            const SizedBox(height: 30),
+            const SizedBox(height: 28),
             const Align(
               alignment: Alignment.centerLeft,
-              child: Text('☀ 추천 기상 시간', style: TextStyle(fontWeight: FontWeight.bold)),
+              child: Text('🌙 추천 취침 시간', style: TextStyle(fontWeight: FontWeight.bold)),
             ),
             const SizedBox(height: 10),
 
             Expanded(
               child: ListView.builder(
-                itemCount: wakeTimes.length,
+                itemCount: bedTimes.length,
                 itemBuilder: (context, index) {
-                  final time = wakeTimes[index];
+                  final time = bedTimes[index];
                   return GestureDetector(
                     onTap: () {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => SleepDashboardScreen(
-                            recommendedWakeTime: time,
-                          ),
+                          builder: (_) => BlueDashboardScreen(recommendedBedTime: time),
                         ),
                       );
                     },
@@ -100,11 +101,14 @@ class _SleepTimeScreenState extends State<SleepTimeScreen> {
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(16),
-                        border: Border.all(color: Colors.deepPurpleAccent, width: 1),
+                        border: Border.all(color: const Color(0xFF2E6AE6), width: 1),
                       ),
-                      child: Text(
-                        time,
-                        style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(time, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
+                          const Icon(Icons.chevron_right),
+                        ],
                       ),
                     ),
                   );

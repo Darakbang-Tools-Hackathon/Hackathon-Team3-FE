@@ -1,219 +1,72 @@
 import 'package:flutter/material.dart';
-import 'sleep_time_screen.dart';
+import 'sleep_option_screen.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  void _login() {
+    final email = _emailController.text.trim();
+    final password = _passwordController.text.trim();
+
+    if (email.isEmpty || password.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('이메일과 비밀번호를 입력하세요.')),
+      );
+      return;
+    }
+
+    // TODO: 로그인 검증 로직
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => const SleepOptionScreen()),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFDF8F2),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const SizedBox(height: 60),
-
-                // ☀️ 상단 아이콘
-                Stack(
-                  alignment: Alignment.bottomRight,
-                  children: [
-                    Container(
-                      width: 120,
-                      height: 120,
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFFFB86C),
-                        borderRadius: BorderRadius.circular(28),
-                      ),
-                      child: const Icon(
-                        Icons.wb_sunny_outlined,
-                        color: Colors.white,
-                        size: 70,
-                      ),
-                    ),
-                    Container(
-                      width: 34,
-                      height: 34,
-                      margin: const EdgeInsets.only(right: 6, bottom: 6),
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                        shape: BoxShape.circle,
-                      ),
-                      child: const Icon(
-                        Icons.person,
-                        color: Color(0xFFFFB86C),
-                        size: 20,
-                      ),
-                    ),
-                  ],
-                ),
-
-                const SizedBox(height: 36),
-
-                const Text(
-                  '좋은 아침을 시작하세요!',
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black87,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-
-                const SizedBox(height: 12),
-
-                const Text(
-                  '포즈 챌린지로 활기찬 하루를 만들어보세요',
-                  style: TextStyle(
-                    fontSize: 15,
-                    height: 1.5,
-                    color: Colors.black54,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-
-                const SizedBox(height: 36),
-
-                // 🪴 레벨 아이콘
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    _buildLevelCard('Lv.1'),
-                    const SizedBox(width: 16),
-                    _buildLevelCard('Lv.5'),
-                    const SizedBox(width: 16),
-                    _buildLevelCard('Lv.10'),
-                  ],
-                ),
-
-                const SizedBox(height: 50),
-
-                // 🔹 회원가입 버튼
-                _buildButton(
-                  context,
-                  label: '회원가입',
-                  color: const Color(0xFFFFE0B2),
-                  textColor: Colors.black87,
-                  onTap: () {
-                    // TODO: 회원가입 페이지로 연결
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('회원가입 페이지 연결 예정')),
-                    );
-                  },
-                ),
-                const SizedBox(height: 14),
-
-                // 🔹 로그인 버튼
-                _buildButton(
-                  context,
-                  label: '로그인',
-                  color: Colors.white,
-                  textColor: Colors.black87,
-                  border: true,
-                  onTap: () {
-                    // TODO: 로그인 페이지로 연결
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('로그인 페이지 연결 예정')),
-                    );
-                  },
-                ),
-                const SizedBox(height: 14),
-
-                // 🔹 시작하기 버튼
-                _buildButton(
-                  context,
-                  label: '시작하기',
-                  color: const Color(0xFFFFB86C),
-                  textColor: Colors.white,
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const SleepTimeScreen(),
-                      ),
-                    );
-                  },
-                ),
-
-                const SizedBox(height: 32),
-
-                const Text(
-                  '계속 진행하면 이용약관 및 개인정보 처리방침에 동의하게 됩니다',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.black45,
-                    height: 1.5,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ],
-            ),
-          ),
-        ),
+      appBar: AppBar(
+        title: const Text('로그인'),
+        backgroundColor: Colors.orangeAccent,
+        centerTitle: true,
       ),
-    );
-  }
-
-  // 버튼 위젯
-  Widget _buildButton(BuildContext context,
-      {required String label,
-      required Color color,
-      required Color textColor,
-      bool border = false,
-      required VoidCallback onTap}) {
-    return Container(
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(14),
-        border: border ? Border.all(color: Colors.black26) : null,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.08),
-            blurRadius: 6,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child: TextButton(
-        onPressed: onTap,
-        child: Text(
-          label,
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            color: textColor,
-          ),
-        ),
-      ),
-    );
-  }
-
-  // 레벨 박스
-  Widget _buildLevelCard(String label) {
-    return Container(
-      width: 70,
-      height: 70,
-      decoration: BoxDecoration(
-        color: const Color(0xFFFFE0B2),
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Center(
+      body: Padding(
+        padding: const EdgeInsets.all(24.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(Icons.local_florist, color: Colors.brown, size: 28),
-            const SizedBox(height: 4),
-            Text(
-              label,
-              style: const TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.w500,
-                color: Colors.black54,
+            const SizedBox(height: 40),
+            TextField(
+              controller: _emailController,
+              decoration: const InputDecoration(
+                labelText: '이메일',
+                border: OutlineInputBorder(),
               ),
+            ),
+            const SizedBox(height: 20),
+            TextField(
+              controller: _passwordController,
+              obscureText: true,
+              decoration: const InputDecoration(
+                labelText: '비밀번호',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 30),
+            ElevatedButton(
+              onPressed: _login,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.orangeAccent,
+                minimumSize: const Size(double.infinity, 50),
+              ),
+              child: const Text('로그인', style: TextStyle(color: Colors.white)),
             ),
           ],
         ),

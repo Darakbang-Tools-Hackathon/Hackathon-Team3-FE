@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
-import 'screens/splash_screen.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'router/app_router.dart';
 
 void main() {
-  runApp(const PoseWakeApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
-class PoseWakeApp extends StatelessWidget {
-  const PoseWakeApp({super.key});
+class MyApp extends ConsumerWidget {
+  const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
+  Widget build(BuildContext context, WidgetRef ref) {
+    final router = ref.watch(routerProvider);
+
+    return MaterialApp.router(
+      routerConfig: router,
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+      title: 'PoseUp',
+      theme: ThemeData(primarySwatch: Colors.blue),
     );
   }
 }
