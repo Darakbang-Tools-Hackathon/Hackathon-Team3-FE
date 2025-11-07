@@ -1,0 +1,19 @@
+# Flutter & Dart
+.dart_tool/
+.packages
+pubspec.lock
+
+# Platforms
+build/
+android/
+ios/
+web/
+linux/
+macos/
+windows/
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
