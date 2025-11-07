@@ -5,17 +5,12 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:poseup_app/app.dart';
+import 'package:poseup_app/main.dart';
 
 void main() {
   testWidgets('앱이 정상적으로 렌더링되는지 확인', (WidgetTester tester) async {
-    await tester.pumpWidget(
-      const ProviderScope(
-        child: PoseUpApp(),
-      ),
-    );
+    await tester.pumpWidget(const PoseWakeApp());
 
     expect(find.text('좋은 아침을 시작하세요!'), findsOneWidget);
   });
