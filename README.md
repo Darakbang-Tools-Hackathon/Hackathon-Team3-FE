@@ -3,6 +3,8 @@
 > 프로젝트 비전: REM 수면 사이클 기반의 스마트 알람과 AI 포즈 인증 챌린지를 결합하여, 건강한 아침 습관 형성을 지원합니다.
 > 
 
+[시연 영상](https://youtube.com/shorts/v_xkEqrY_7s?si=4XP8-88M945hL-9t)
+
 ## 1. 핵심 기능 모듈 (Core Functional Modules)
 
 ### 1.1. ⏰ 스마트 기상 시스템 (Smart Wake-up)
